@@ -1,0 +1,163 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color:white;
+}
+
+.container{
+    width: 300px;
+    height: 300px;
+    max-width: 100%;
+    max-height: 100%;
+    background-color: #fa7c4a;
+    border-radius: 10%;
+    margin : 5vh auto;
+}
+
+.clock {
+    width: 250px;
+    height: 250px;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+    background-color: white;
+    position: relative;
+    margin: auto;
+    top: 25px;
+    box-shadow: inset 0px -10px 20px rgb(52,51,51),
+    0px -10px 10px rgb(99,98,98),
+    inset 0px 10px 20px rgba(134, 132, 132, 0.648),
+    0px 10px 10px rgba(134,132,132,0.648);
+}
+.hour, .minute, .second {
+    position: absolute;
+    background-color: rgba(244, 41, 41, 0.815);
+    border-radius: 5px;
+    transform-origin: bottom;
+}
+.hour {
+    width: 6px;
+    height: 80px; /* 수정된 부분 */
+    top: calc(50% - 80px);
+    left: calc(50% - 3px);
+}
+
+.minute {
+    width: 4px;
+    height: 100px; /* 수정된 부분 */
+    top: calc(50% - 100px);
+    left: calc(50% - 2px);
+}
+
+.second {
+    width: 2px;
+    height: 120px; /* 수정된 부분 */
+    top: calc(50% - 120px);
+    left: calc(50% - 1px);
+}
+.hour-mark {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 16px; /* 숫자 크기 조정 */
+    line-height: 1.2; /* 숫자 간격 조정 */
+}
+
+/* 시계의 원주에 고르게 배치되도록 스타일 지정 */
+.hour-mark:nth-child(1) {
+    top: 5%;
+    left: 23%;
+    transform-origin: left top;
+}
+.hour-mark:nth-child(2) {
+    top: 22%;
+    left: 41%;
+    transform-origin: left top;
+}
+.hour-mark:nth-child(3) {
+    top: 46%;
+    left: 47%;
+    transform-origin: left top;
+}
+.hour-mark:nth-child(4) {
+    top: 70%;
+    left: 41%;
+    transform-origin: left top;
+}
+.hour-mark:nth-child(5) {
+    top: 87%;
+    left: 23%;
+    transform-origin: left top;
+}
+.hour-mark:nth-child(6) {
+    top: 93%;
+    left: 0%;
+    transform-origin: left top;
+}
+.hour-mark:nth-child(7) {
+    top: 87%;
+    left: -23%;
+    transform-origin: left top;
+}
+.hour-mark:nth-child(8) {
+    top: 70%;
+    left: -40%;
+    transform-origin: left top;
+}
+.hour-mark:nth-child(9) {
+    top: 46%;
+    left: -48%;
+    transform-origin: left top;
+}
+.hour-mark:nth-child(10) {
+    top: 22%;
+    left:-40%;
+    transform-origin: left top;
+}
+.hour-mark:nth-child(11) {
+    top: 5%;
+    left: -23%;
+    transform-origin: left top;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 200px;
+        height: 200px;
+        margin: 10vh auto;
+    }
+
+    .clock {
+        width: 180px;
+        height: 180px;
+        top: 10px;
+    }
+
+    .hour {
+        width: 4px;
+        height: 50px; /* 수정된 부분 */
+        top: calc(50% - 50px);
+        left: calc(50% - 2px);
+    }
+
+    .minute {
+        width: 3px;
+        height: 70px; /* 수정된 부분 */
+        top: calc(50% - 70px);
+        left: calc(50% - 1.5px);
+    }
+
+    .second {
+        width: 2px;
+        height: 90px; /* 수정된 부분 */
+        top: calc(50% - 90px);
+        left: calc(50% - 1px);
+    }
+
+    .hour-mark {
+        font-size: 14px;
+    }
+}

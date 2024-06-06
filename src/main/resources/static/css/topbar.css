@@ -1,0 +1,173 @@
+body, ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none; /* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
+}
+
+a {
+    color: inherit; /* 부모 엘리먼트의 값을 물려받는다 */
+    text-decoration: none; /* 해당 태그의 text-decoration을 none으로 하는 것으로 밑줄을 제거한다 */
+    background: #343a40;
+}
+
+/* 2차 이상의 메뉴만 none 값을 주기 */
+.top-bar__menu-box-1 > ul ul {
+    display: none;
+}
+
+a {
+    font-size: 1rem;
+    color: black;
+}
+
+.top-bar__menu-box-1 ul > li > a {
+    display: block;
+    font-size: 1rem;
+    padding: 5px 30px;
+    border: 5px solid darkgrey;
+}
+
+/* 모든 메뉴를 마우스 인식 시 배경색을 변경 */
+/*.top-bar__menu-box-1 ul > li:hover > a {
+    background-color: #555;
+}*/
+
+/* 2차 메뉴가 보이도록 만들어 보자 */
+.top-bar__menu-box-1 > ul > li:hover > ul {
+    display: block;
+}
+
+/* 1차 메뉴를 제한 구역으로 설정 */
+.top-bar__menu-box-1 > ul > li {
+    position: relative;
+}
+
+/* 2차 메뉴에 absolute 값을 주기 */
+.top-bar__menu-box-1 > ul > li > ul {
+    position: absolute;
+    top: 100%; /* 2차 메뉴를 1차 메뉴의 아래에 위치시킨다 */
+    left: 0; /* 2차 메뉴를 1차 메뉴의 왼쪽 벽에 붙인다 */
+    width: 100%; /* 부모의 너비를 그대로 받아온다 */
+}
+
+html {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* 메뉴 박스의 모서리를 둥글게 해주자 */
+.top-bar__menu-box-1 > ul {
+    border-radius: 20px;
+}
+
+.top-bar__menu-box-1 ul ul li a {
+    color: white;
+}
+
+.top-bar__menu-box-1 button[type="submit"][class="btn btn-outline-light"] {
+    width: 200px; /* 너비 조정 */
+}
+
+/*내 정보 버튼(공동으로 들어가는게 topbar이기 때문에 여기다 넣었음) */
+.small-button {
+    font-size: 0.8rem; /* 작은 크기의 폰트 크기 */
+    padding: 0.2rem 0.5rem; /* 작은 패딩 */
+    display: inline-block;
+}
+
+.d-flex.align-items-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+p {
+    font-size: 0.8rem; /* 폰트 크기를 작게 설정 */
+    margin-bottom: 0.5rem; /* 아래 여백을 조정 */
+    color: white;
+}
+
+.d-flex.align-items-center p {
+    color: white; /* 흰색으로 글자 색상 설정 */
+}
+
+.d-flex.align-items-center .form-inline {
+    margin-left: 10px;
+}
+
+/* 해상도에 따라 loginMember 부분이 현재 위치에 그대로 있도록 하는 스타일 */
+@media (max-width: 768px) {
+    .navbar-nav {
+        display: none; /* 기본적으로 메뉴를 숨깁니다 */
+    }
+
+    .navbar-collapse.show .navbar-nav {
+        display: block; /* 토글 버튼을 클릭하면 메뉴를 표시합니다 */
+    }
+
+    .navbar-toggler {
+        display: block; /* 토글 버튼을 모바일 화면에서만 표시합니다 */
+    }
+
+    .navbar-collapse {
+        flex-grow: 1;
+        justify-content: flex-end; /* 메뉴를 오른쪽으로 정렬합니다 */
+    }
+
+    .top-bar__menu-box-1 ul {
+        display: none; /* 1차 메뉴 숨기기 */
+    }
+
+    .top-bar__menu-box-1 > ul > li:hover > ul {
+        display: block; /* 마우스 오버시 2차 메뉴 표시 */
+    }
+
+    .top-bar__menu-box-1 ul ul li a {
+        color: white; /* 2차 메뉴 링크 텍스트 색상 설정 */
+    }
+
+    .mr-md-auto {
+        margin-right: auto !important;
+    }
+
+    .text-nowrap {
+        white-space: nowrap;
+    }
+}
+
+/* 데스크탑 스타일 */
+@media (min-width: 769px) {
+    .navbar-nav {
+        display: flex; /* 데스크탑에서는 메뉴를 표시합니다 */
+    }
+
+    .navbar-toggler {
+        display: none; /* 데스크탑에서는 토글 버튼을 숨깁니다 */
+    }
+
+    .top-bar__menu-box-1 ul {
+        display: block; /* 1차 메뉴 표시 */
+    }
+
+    .mr-md-auto {
+        margin-right: auto !important;
+    }
+
+    .text-nowrap {
+        white-space: nowrap;
+    }
+}
+
+.sunset-image {
+    vertical-align: middle; /* 이미지를 수직으로 가운데 정렬합니다 */
+    margin-right: 5px; /* 이미지와 텍스트 사이의 오른쪽 여백을 조정합니다 */
+}
+
+.navbar-brand {
+    display: flex; /* 요소들을 행으로 배치합니다 */
+    align-items: center; /* 내용을 수직으로 가운데 정렬합니다 */
+}
+
+/* Menu 글씨를 흰색으로 설정 */
+.navbar-nav .nav-link.dropdown-toggle {
+    color: white;
+}

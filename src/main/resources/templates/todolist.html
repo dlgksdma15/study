@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>일몰시 To Do List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/topbar.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../css/todolist.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../timer">
+                <img src="../img/icon.png" alt="일몰 이미지" class="sunset-image" width="70px">
+                <span style="font-size: 0.8em; vertical-align: middle;"></span>
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between flex-column flex-md-row" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Menu
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/timer">Timer</a>
+                        <a class="dropdown-item" href="/board">게시판</a>
+                        <a class="dropdown-item" href="/total">Total time</a>
+                    </div>
+                </li>
+            </ul>
+            <div th:with="loginMember=${session.loginMember}" class="d-flex align-items-center ml-auto">
+                <div th:if="${loginMember != null && loginMember.memberName != null}" class="mr-md-auto mb-2 mb-md-0 text-nowrap">
+                    <p th:text="${loginMember.memberName} + ' 님'"></p>
+                    <form action="/index" method="post" class="form-inline">
+                        <button type="submit" class="btn btn-outline-light small-button">로그아웃</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="wrapper">
+    <header>
+        <div class="nav">
+            <button id="prev" class="material-icons"> chevron_left </button>
+            <p class="current-date"></p>
+            <button id="next" class="material-icons"> chevron_right </button>
+        </div>
+    </header>
+    <div class="calendar">
+        <ul class="weeks">
+            <li>Sun</li>
+            <li>Mon</li>
+            <li>Tue</li>
+            <li>Wed</li>
+            <li>Thu</li>
+            <li>Fri</li>
+            <li>Sat</li>
+        </ul>
+        <ul class="days">
+            <!-- Days will be generated dynamically -->
+        </ul>
+        <ul class="current-day">
+            <!-- Current day will be generated dynamically for mobile -->
+        </ul>
+    </div>
+</div>
+
+<div class="main">
+    <div class="content-wrap">
+        <div class="todo-wrap">
+            <div class="todo-title"><strong>Todo List</strong></div>
+            <div class="input-wrap">
+                <div class="add-task">
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+                <form class="add-task-form" th:action="@{/todo/create}" method="post">
+                    <input name="content" placeholder="오늘의 할 일을 적어보세요!"/>
+                    <input type="hidden" name="email" th:value="${session.loginMember.memberEmail}"/>
+                    <button>작성</button>
+                </form>
+                <div class="todo-table-container">
+                    <table>
+                        <tbody>
+                        <tr th:each="todoentity : ${toDoEntityList}">
+                            <td>
+                                <button class="circle-icon-btn" th:data-id="${todoentity.idx}" onclick="toggleTodoStatus(this.getAttribute('data-id'))">
+                                    <i class="fas fa-circle"></i>
+                                </button>
+                            </td>
+                            <td onclick="toggleTodoStatus(${todoentity.idx})" th:class="${todoentity.completed} ? 'completed' : ''">
+                                <div class="todo-content">
+                                    <span th:text="${todoentity.content}"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="todo-button">
+                                    <button class="edit-btn" th:data-id="${todoentity.idx}" onclick="openModal(this.getAttribute('data-id'))">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="todo-button">
+                                    <button class="delete-btn" th:data-id="${todoentity.idx}" onclick="deleteItem(this.getAttribute('data-id'))">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="todo-button">
+                                    <button class="status-btn" th:data-id="${todoentity.idx}" th:data-status="${todoentity.completed}" onclick="toggleTodoStatus(this.getAttribute('data-id'))">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal">
+                <div class="modal_content">
+                    <input id="revise" placeholder="내용을 수정해주세요"/>
+                    <button type="submit" id="completeBtn" onclick="reviseItem()">완료</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/calender.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="../js/todo.js"></script>
+</body>
+<footer>
+    <div id="quoteContainer">
+        <p id="quote"></p>
+    </div>
+    <script src="../js/quotes.js" defer></script>
+    <style>
+        #quoteContainer {
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #quote {
+            font-size: 20px;
+            font-style: italic;
+            color: #333;
+        }
+    </style>
+</footer>
+</html>

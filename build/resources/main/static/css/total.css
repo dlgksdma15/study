@@ -1,0 +1,82 @@
+/* 기존 total.css 내용 */
+.image {
+    margin-top: 100px;
+    text-align: center;
+}
+@media only screen and (max-width: 600px) {
+    .image img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+h1 {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 3em;
+}
+
+.footer {
+    bottom: 0;
+    left: 0;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* 추가된 CSS 내용 */
+@media (max-width: 768px) {
+    .navbar-nav {
+        display: none; /* 기본적으로 메뉴를 숨깁니다 */
+    }
+
+    .navbar-collapse.show .navbar-nav {
+        display: block; /* 토글 버튼을 클릭하면 메뉴를 표시합니다 */
+    }
+
+    .navbar-toggler {
+        display: block; /* 토글 버튼을 모바일 화면에서만 표시합니다 */
+    }
+
+    .navbar-collapse {
+        flex-grow: 1;
+        justify-content: flex-end; /* 메뉴를 오른쪽으로 정렬합니다 */
+    }
+
+    .navbar-nav .nav-item .dropdown-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .navbar-nav .nav-item .dropdown-menu .dropdown-item {
+        padding: 0.5rem 1rem;
+        color: white;
+    }
+
+    .navbar-nav .nav-item .dropdown-menu .dropdown-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+@media (min-width: 769px) {
+    .navbar-nav {
+        display: flex; /* 데스크탑에서는 메뉴를 표시합니다 */
+    }
+
+    .navbar-toggler {
+        display: none; /* 데스크탑에서는 토글 버튼을 숨깁니다 */
+    }
+
+    .navbar-collapse.show .navbar-nav {
+        display: flex; /* 데스크탑에서는 메뉴를 표시합니다 */
+    }
+}
+
+.navbar-nav .nav-link.dropdown-toggle {
+    color: white;
+}
